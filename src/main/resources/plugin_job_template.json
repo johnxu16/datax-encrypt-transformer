@@ -1,0 +1,7 @@
+{
+  "name": "",
+  "parameter": {
+    "column": [1],
+    "paras": ["encryptType", "encryptKey"]
+  }
+}
