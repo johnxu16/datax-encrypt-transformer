@@ -16,7 +16,7 @@ import java.util.List;
 public class EncryptTransformer extends Transformer {
 
     public EncryptTransformer(){
-        super.setTransformerName("dx_encrypt");
+        super.setTransformerName("encrypttransformer");
     }
 
     @Override

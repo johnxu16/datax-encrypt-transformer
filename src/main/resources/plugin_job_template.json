@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "encrypttransformer",
   "parameter": {
     "column": [1],
     "paras": ["encryptType", "encryptKey"]

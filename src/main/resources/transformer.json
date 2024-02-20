@@ -1,6 +1,6 @@
 {
-  "name": "encrypt_transformer",
-  "class": "com.luqi.datax.transformer.EncryptTransformer",
+  "name": "encrypttransformer",
+  "class": "com.alibaba.datax.transformer.EncryptTransformer",
   "description": "Encrypt record with SM4 algorithm and save secret in local storage",
   "developer": "bringerxu@tom.com"
 }
