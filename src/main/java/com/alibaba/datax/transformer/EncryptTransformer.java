@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 
 public class EncryptTransformer extends ComplexTransformer {
@@ -23,17 +24,19 @@ public class EncryptTransformer extends ComplexTransformer {
     public Record evaluate(Record record, Map<String, Object> tContext, Object... paras) {
         LOG.debug("Paras: " + Arrays.toString(paras));
         LOG.debug("tContext: " + (tContext != null ? tContext.toString() : ""));
-        int columnIndex;
-        String encryptType;
-        String encryptKey;
 
-        if (paras.length != 3) {
+        if (tContext == null) {
+            throw DataXException.asDataXException(TransformerErrorCode.TRANSFORMER_ILLEGAL_PARAMETER, "context: null");
+        }
+
+        if (paras.length != 1) {
             throw DataXException.asDataXException(TransformerErrorCode.TRANSFORMER_ILLEGAL_PARAMETER, "paras:" + Arrays.asList(paras));
         }
 
-        columnIndex = Integer.parseInt(paras[0].toString());
-        encryptType = (String) paras[1];
-        encryptKey = (String) paras[2];
+        String encryptType = (String) tContext.getOrDefault("encryptType", AlgorithmType.SM4_ECB.getCode());
+        String encryptKey = (String) tContext.get("encryptKey");
+        @SuppressWarnings("unchecked") List<Integer> columns = (List<Integer>) tContext.get("columns");
+
 
         AlgorithmType algorithmType = EnumUtil.getBy(AlgorithmType.class, (e) -> e.getCode().equals(encryptType));
 
@@ -42,8 +45,9 @@ public class EncryptTransformer extends ComplexTransformer {
         }
 
         try {
-            // 加密
-            encryptColumn(record, columnIndex, encryptKey, algorithmType);
+            for (Integer colIdx : columns) {
+                encryptColumn(record, colIdx, encryptKey, algorithmType);
+            }
         } catch (Exception e) {
             throw DataXException.asDataXException(TransformerErrorCode.TRANSFORMER_RUN_EXCEPTION, e.getMessage(), e);
         }
