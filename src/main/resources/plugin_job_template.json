@@ -1,7 +1,11 @@
 {
   "name": "encrypttransformer",
   "parameter": {
-    "columnIndex": 1,
-    "paras": ["encryptType", "encryptKey"]
+    "columnIndex": 0,
+    "context": {
+      "encryptType": "SM4",
+      "encryptKey": "leao7y4ib3tclk6v",
+      "columns": [1]
+    }
   }
 }
