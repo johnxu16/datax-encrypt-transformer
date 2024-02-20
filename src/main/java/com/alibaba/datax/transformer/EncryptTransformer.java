@@ -14,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
-import java.util.List;
 
 public class EncryptTransformer extends Transformer {
 
@@ -26,18 +25,15 @@ public class EncryptTransformer extends Transformer {
 
     @Override
     public Record evaluate(Record record, Object... paras) {
-        LOG.debug("paras: " + Arrays.toString(paras));
-
-        List<Integer> column;
-        String encryptKey;
+        int columnIndex;
         String encryptType;
+        String encryptKey;
 
         if (paras.length != 3) {
             throw DataXException.asDataXException(TransformerErrorCode.TRANSFORMER_ILLEGAL_PARAMETER, "paras:" + Arrays.asList(paras));
         }
 
-        //noinspection unchecked
-        column = (List<Integer>) paras[0];
+        columnIndex = Integer.parseInt(paras[0].toString());
         encryptType = (String) paras[1];
         encryptKey = (String) paras[2];
 
@@ -49,9 +45,7 @@ public class EncryptTransformer extends Transformer {
 
         try {
             // 加密
-            for(Integer colIdx: column) {
-                encryptColumn(record, colIdx, encryptKey, algorithmType);
-            }
+            encryptColumn(record, columnIndex, encryptKey, algorithmType);
         } catch (Exception e) {
             throw DataXException.asDataXException(TransformerErrorCode.TRANSFORMER_RUN_EXCEPTION, e.getMessage(), e);
         }
