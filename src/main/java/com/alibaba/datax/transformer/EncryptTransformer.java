@@ -7,13 +7,18 @@ import cn.hutool.crypto.SmUtil;
 import com.alibaba.datax.common.element.Record;
 import com.alibaba.datax.common.element.StringColumn;
 import com.alibaba.datax.common.exception.DataXException;
+import com.alibaba.datax.common.spi.Writer;
 import com.alibaba.datax.core.transport.transformer.TransformerErrorCode;
 import com.alibaba.datax.transformer.support.AlgorithmType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
 import java.util.List;
 
 public class EncryptTransformer extends Transformer {
+
+    private static final Logger LOG = LoggerFactory.getLogger(Writer.Job.class);
 
     public EncryptTransformer(){
         super.setTransformerName("encrypttransformer");
@@ -21,6 +26,8 @@ public class EncryptTransformer extends Transformer {
 
     @Override
     public Record evaluate(Record record, Object... paras) {
+        LOG.debug("paras: " + Arrays.toString(paras));
+
         List<Integer> column;
         String encryptKey;
         String encryptType;
