@@ -14,21 +14,21 @@
                 <include>transformer.json</include>
                 <include>plugin_job_template.json</include>
             </includes>
-            <outputDirectory>plugin/transformer/encrypttransformer</outputDirectory>
+            <outputDirectory>local_storage/transformer/encrypttransformer</outputDirectory>
         </fileSet>
         <fileSet>
             <directory>target/</directory>
             <includes>
                 <include>encrypttransformer-0.0.1-SNAPSHOT.jar</include>
             </includes>
-            <outputDirectory>plugin/transformer/encrypttransformer</outputDirectory>
+            <outputDirectory>local_storage/transformer/encrypttransformer</outputDirectory>
         </fileSet>
     </fileSets>
 
     <dependencySets>
         <dependencySet>
             <useProjectArtifact>false</useProjectArtifact>
-            <outputDirectory>plugin/transformer/encrypttransformer/libs</outputDirectory>
+            <outputDirectory>local_storage/transformer/encrypttransformer/libs</outputDirectory>
             <scope>runtime</scope>
         </dependencySet>
     </dependencySets>
